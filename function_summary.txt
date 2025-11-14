@@ -1,0 +1,28 @@
+Functions: 
+
+1. The user can sort flights based on a few factors:
+popularity / range between minPrice and maxPrice
+
+2. The user can search for specific flights with factors:
+departureCity: optional, default value: Singapore
+arrivalCity: complusory
+departDate: complusory
+returnDate: complusory, but optional when its one-way
+cabinClass: optional, default value: Economy
+passengers: complusory
+
+3. The user can book a flight with following parameters:
+passenger first, last names and email address
+payment information, any promo code
+
+4. The user can edit flight infomation with following parameters:
+flight booking id, type of field, new value
+
+5. The user can display booked flights
+
+
+JSON data limitations:
+- All flights are direct (no stopovers)
+- All flights are travelling to/from Singapore
+- Some flights do not offer round trip flights (not mentioned "round_price" in these flights)
+- Flight status limited to "Scheduled" and "Delayed" (for earlier date flights)
