@@ -8,8 +8,7 @@ departureCity: optional, default value: Singapore
 arrivalCity: complusory
 departDate: complusory
 returnDate: complusory, but optional when its one-way
-cabinClass: optional, default value: Economy
-passengers: complusory
+cabinClass: optional,      default value: Economy
 
 3. The user can book a flight with following parameters:
 passenger first, last names and email address

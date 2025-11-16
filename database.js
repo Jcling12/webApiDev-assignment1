@@ -3,26 +3,20 @@ const flights = [
   {
     "flight_number": "SQ203",
     "flight_name": "Singapore Airlines",
-    "rating": "4.9",
     "flight_status": {
       "type": "Delayed",
       "time_delay": 2.5
     },
     "flight_dates": [
-      {
-        "date": "10-12-2025",
-        "single_price": 390.00
-      },
-      {
-        "date": "15-12-2025",
-        "single_price": 370.00,
-        "round_price": 464.00,
-      },
-      {
-        "date": "18-12-2025",
-        "single_price": 380.00,
-        "round_price": 440.00
-      }
+      { "date": "10-12-2025", "single_price": 390.00 },
+      { "date": "15-12-2025", "single_price": 370.00, "round_price": 464.00, },
+      { "date": "18-12-2025", "single_price": 380.00, "round_price": 440.00 }
+    ],
+    "flight_class": [
+      { "class": "Economy", "increase_percent": 0 },
+      { "class": "Premium Economy", "increase_percent": 25 },
+      { "class": "Business", "increase_percent": 70 },
+      { "class": "First Class", "increase_percent": 120 }
     ],
     "round_trip_flight_number": "SQ204",
     "departure": {
@@ -45,29 +39,19 @@ const flights = [
   {
     "flight_number": "SQ204",
     "flight_name": "Singapore Airlines",
-    "rating": "4.8",
     "flight_status": "Scheduled",
-    "flight_dates":
-      [
-        {
-          "date": "12-12-2025",
-          "single_price": 250.40
-        },
-        {
-          "date": "13-12-2025",
-          "single_price": 280.00
-        },
-        {
-          "date": "15-12-2025",
-          "single_price": 260.00,
-          "round_price": 315.00,
-        },
-        {
-          "date": "18-02-2026",
-          "single_price": 240.00,
-          "round_price": 320.20
-        },
-      ],
+    "flight_dates": [
+      { "date": "12-12-2025", "single_price": 250.40 },
+      { "date": "13-12-2025", "single_price": 280.00 },
+      { "date": "15-12-2025", "single_price": 260.00, "round_price": 315.00 },
+      { "date": "18-02-2026", "single_price": 240.00, "round_price": 320.20 }
+    ],
+    "flight_class": [
+      { "class": "Economy", "increase_percent": 0 },
+      { "class": "Premium Economy", "increase_percent": 25 },
+      { "class": "Business", "increase_percent": 70 },
+      { "class": "First Class", "increase_percent": 120 }
+    ],
     "round_trip_flight_number": "SQ203",
     "departure": {
       "location": "Ho Chi Minh City, Vietnam",
@@ -88,19 +72,16 @@ const flights = [
   {
     "flight_number": "MU545",
     "flight_name": "China Eastern",
-    "rating": "4.2",
     "flight_status": "Scheduled",
     "flight_dates": [
-      {
-        "date": "03-09-2026",
-        "single_price": 350.00,
-        "round_price": 285.00
-      },
-      {
-        "date": "10-09-2026",
-        "single_price": 380.00,
-        "round_price": 310.00
-      }
+      { "date": "03-09-2026", "single_price": 350.00, "round_price": 285.00 },
+      { "date": "10-09-2026", "single_price": 380.00, "round_price": 310.00 }
+    ],
+    "flight_class": [
+      { "class": "Economy", "increase_percent": 0 },
+      { "class": "Premium Economy", "increase_percent": 20 },
+      { "class": "Business", "increase_percent": 60 },
+      { "class": "First Class", "increase_percent": 110 }
     ],
     "round_trip_flight_number": "MU546",
     "departure": {
@@ -123,26 +104,18 @@ const flights = [
   {
     "flight_number": "MU546",
     "flight_name": "China Eastern",
-    "rating": "4.5",
     "flight_status": "Scheduled",
     "flight_dates": [
-      {
-        "date": "30-08-2026",
-        "single_price": 290.00
-      },
-      {
-        "date": "01-09-2026",
-        "single_price": 310.00
-      },
-      {
-        "date": "03-09-2026",
-        "single_price": 305.20,
-        "round_price": 340.00
-      },
-      {
-        "date": "10-09-2026",
-        "round_price": 300.00
-      }
+      { "date": "30-08-2026", "single_price": 290.00 },
+      { "date": "01-09-2026", "single_price": 310.00 },
+      { "date": "03-09-2026", "single_price": 305.20, "round_price": 340.00 },
+      { "date": "10-09-2026", "round_price": 300.00 }
+    ],
+    "flight_class": [
+      { "class": "Economy", "increase_percent": 0 },
+      { "class": "Premium Economy", "increase_percent": 20 },
+      { "class": "Business", "increase_percent": 60 },
+      { "class": "First Class", "increase_percent": 110 }
     ],
     "departure": {
       "location": "Singapore",
@@ -164,20 +137,17 @@ const flights = [
   {
     "flight_number": "TR890",
     "flight_name": "Scoot",
-    "rating": "3.7",
     "flight_status": {
       "type": "Delayed",
       "time_delay": 1.0
     },
     "flight_dates": [
-      {
-        "date": "20-11-2025",
-        "single_price": 289.00
-      },
-      {
-        "date": "23-11-2025",
-        "round_price": 269.70
-      }
+      { "date": "20-11-2025", "single_price": 289.00 },
+      { "date": "23-11-2025", "round_price": 269.70 }
+    ],
+    "flight_class": [
+      { "class": "Economy", "increase_percent": 0 },
+      { "class": "ScootPlus", "increase_percent": 40 }
     ],
     "departure": {
       "location": "Singapore",
@@ -198,14 +168,15 @@ const flights = [
   {
     "flight_number": "BA15",
     "flight_name": "British Airways",
-    "rating": "4.6",
     "flight_status": "Scheduled",
     "flight_dates": [
-      {
-        "date": "22-10-2026",
-        "single_price": 880.00,
-        "round_price": 1080.00
-      }
+      { "date": "22-10-2026", "single_price": 880.00, "round_price": 1080.00 }
+    ],
+    "flight_class": [
+      { "class": "Economy", "increase_percent": 0 },
+      { "class": "Premium Economy", "increase_percent": 30 },
+      { "class": "Business", "increase_percent": 75 },
+      { "class": "First Class", "increase_percent": 130 }
     ],
     "departure": {
       "location": "London Borough of Hillingdon, London",
@@ -229,7 +200,7 @@ const main_users = {
 }
 
 const passengers = {
-
+  
 }
 
 const booked_flights = {
