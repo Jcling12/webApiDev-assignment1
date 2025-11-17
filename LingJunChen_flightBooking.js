@@ -1,4 +1,4 @@
-const { flights } = require('./database.js');
+const { flights, booked_flights } = require('./database.js');
 
 module.exports = {
 
@@ -93,21 +93,19 @@ module.exports = {
     }
     else {
       //Match flights based on user parameters
-      const filteredFlights = flights.filter(flight =>
+      const filteredFlight = flights.find(flight =>
         flight.departure.location.toLowerCase() == departureCity.toLowerCase() &&
         flight.arrival.location.toLowerCase() == arrivalCity.toLowerCase() &&
-        flight.flight_dates.find(d => d.date == departDate)
+        flight.flight_dates.find(d => d.date == departDate) &&
+        flight.flight_class.find(c => c.class == cabinClass)
       )
       //Safety check when no flights matched with user input
-      if (filteredFlights.length == 0) {
+      if (filteredFlight.length == 0) {
         console.log("No flights found. Please try again.");
       } else {
-        //Only one flight is retrieved
-        const flight = filteredFlights[0];
-
         //When the user wants to search for a two-way flight
         if (departRoundDate !== null) {
-          roundTripFlight = flights.find(f => f.flight_number == flight.round_trip_flight_number);
+          roundTripFlight = flights.find(f => f.flight_number == filteredFlight.round_trip_flight_number);
 
           //Safety check when no two-way flights are found based on the date
           if (!roundTripFlight || !roundTripFlight.flight_dates.find(d => d.date == departRoundDate)) {
@@ -117,17 +115,17 @@ module.exports = {
         }
 
         //Calculate the price based on cabin class
-        const basePrice = flight.flight_dates.find(d => d.date == departDate).single_price;
-        const priceIncrease = flight.flight_class.find(c => c.class == cabinClass).increase_percent;
+        const basePrice = filteredFlight.flight_dates.find(d => d.date == departDate).single_price;
+        const priceIncrease = filteredFlight.flight_class.find(c => c.class == cabinClass).increase_percent;
         const finalPrice = basePrice * (priceIncrease / 100) + basePrice;
 
         //Return flight details
         const flightResult = {
-          flight_number: flight.flight_number,
-          flight_name: flight.flight_name,
-          status: flight.flight_status?.type || flight.flight_status,
-          departure: flight.departure,
-          arrival: flight.arrival,
+          flight_number: filteredFlight.flight_number,
+          flight_name: filteredFlight.flight_name,
+          status: filteredFlight.flight_status?.type || filteredFlight.flight_status,
+          departure: filteredFlight.departure,
+          arrival: filteredFlight.arrival,
           cabin_class: cabinClass,
           depart_date: departDate,
           fare_price: `$${finalPrice}`,
@@ -135,6 +133,80 @@ module.exports = {
         }
 
         console.log(flightResult);
+      }
+    }
+  },
+
+  //Function #4 - Book a flight based on flight_number with essential information
+  bookFlight(flightId, fullName, cabinClass, departDate) {
+    console.log("\n======== Function #4: Book Flight ========");
+    //Safety check when no/insufficient parameters are passed
+    if (!flightId || !fullName || !cabinClass || !departDate) {
+      console.log("Unable to book flight. Please fill the required fields.");
+    } else {
+      //Retrieve selected flight with fulfilled citeria
+      const selectedFlight = flights.find(f =>
+        f.flight_number.toLowerCase() == flightId.toLowerCase() &&
+        f.flight_dates.find(d => d.date == departDate) &&
+        f.flight_class.find(c => c.class == cabinClass)
+      );
+
+      if (selectedFlight) {
+        //Deduct available seats when flight found
+        let flight_date = selectedFlight.flight_dates.find(f => f.date == departDate);
+        flight_date.availableSeats--;
+
+        //Return flight details
+        const flightResult = {
+          booking_id: Math.random().toString(36).substring(2, 12).toUpperCase(),
+          booking_name: fullName,
+          flight_name: selectedFlight.flight_name,
+          status: selectedFlight.flight_status?.type || selectedFlight.flight_status,
+          departure: selectedFlight.departure,
+          arrival: selectedFlight.arrival,
+          seatNumber: 'TBC',
+          cabinClass,
+          departDate
+        }
+        //Put the booked flight in another JSON object (another table in the database)
+        booked_flights.push(flightResult);
+
+        console.log('Booked Successfully! Below is your confirmed flight details: ');
+        console.log(flightResult);
+      } else {
+        //Safety check when parameters does not match with flight data
+        console.log("Flight not found. Please relook and enter the required fields.");
+      }
+    }
+  },
+
+  //Function #5 - Retrieve flight information based on booked name
+  displayBookedFlights(name) {
+    console.log("\n======== Function #5: Display Booked Flights ========");
+    const userFlights = booked_flights.filter(flight => flight.booking_name.toLowerCase() == name.toLowerCase());
+    
+    //Safety check when no/insufficient parameters are passed
+    if (booked_flights.length == 0 || userFlights.length == 0) {
+      console.log(`No booked flights under ${name}`);
+    } else {
+      console.log(`Flights found under ${name}! Please ensure flight details are correct.`);
+      for (let i = 0; i < userFlights.length; i++) {
+        const flight = userFlights[i];
+        console.log(`\n--- Flight Record ${i + 1} ---`);
+
+        // Loop through the keys of the object
+        for (const key in flight) {
+          // Check if the value is another object (like 'departure' or 'arrival')
+          if (typeof flight[key] === 'object' && flight[key] !== null) {
+            // Loop through the nested object's keys
+            for (const nestedKey in flight[key]) {
+              console.log(`${nestedKey}: ${flight[key][nestedKey]}`);
+            }
+          } else {
+            // Display the key-value pair for simple properties
+            console.log(`${key}: ${flight[key]}`);
+          }
+        }
       }
     }
   }

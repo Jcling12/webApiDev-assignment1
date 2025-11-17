@@ -8,9 +8,9 @@ const flights = [
       "time_delay": 2.5
     },
     "flight_dates": [
-      { "date": "10-12-2025", "single_price": 390.00 },
-      { "date": "15-12-2025", "single_price": 370.00, "round_price": 464.00, },
-      { "date": "18-12-2025", "single_price": 380.00, "round_price": 440.00 }
+      { "date": "10-12-2025", "single_price": 390.00, "availableSeats": 17 },
+      { "date": "15-12-2025", "single_price": 370.00, "round_price": 464.00, "availableSeats": 17 },
+      { "date": "18-12-2025", "single_price": 380.00, "round_price": 440.00, "availableSeats": 20 }
     ],
     "flight_class": [
       { "class": "Economy", "increase_percent": 0 },
@@ -32,7 +32,7 @@ const flights = [
       "time": "14:45",
       "terminal": 1,
       "gate": "A18",
-    },
+    }
   },
 
   //Round-trip flight for SQ203 or Single trip from Tan Son Nhat
@@ -41,10 +41,10 @@ const flights = [
     "flight_name": "Singapore Airlines",
     "flight_status": "Scheduled",
     "flight_dates": [
-      { "date": "12-12-2025", "single_price": 250.40 },
-      { "date": "13-12-2025", "single_price": 280.00 },
-      { "date": "15-12-2025", "single_price": 260.00, "round_price": 315.00 },
-      { "date": "18-02-2026", "single_price": 240.00, "round_price": 320.20 }
+      { "date": "12-12-2025", "single_price": 250.40, "availableSeats": 35 },
+      { "date": "13-12-2025", "single_price": 280.00, "availableSeats": 10 },
+      { "date": "15-12-2025", "single_price": 260.00, "availableSeats": 28 },
+      { "date": "18-02-2026", "single_price": 240.00, "availableSeats": 57 }
     ],
     "flight_class": [
       { "class": "Economy", "increase_percent": 0 },
@@ -74,8 +74,8 @@ const flights = [
     "flight_name": "China Eastern",
     "flight_status": "Scheduled",
     "flight_dates": [
-      { "date": "03-09-2026", "single_price": 350.00, "round_price": 285.00 },
-      { "date": "10-09-2026", "single_price": 380.00, "round_price": 310.00 }
+      { "date": "03-09-2026", "single_price": 350.00, "round_price": 285.00, "availableSeats": 19 },
+      { "date": "10-09-2026", "single_price": 380.00, "round_price": 310.00, "availableSeats": 97 }
     ],
     "flight_class": [
       { "class": "Economy", "increase_percent": 0 },
@@ -106,10 +106,10 @@ const flights = [
     "flight_name": "China Eastern",
     "flight_status": "Scheduled",
     "flight_dates": [
-      { "date": "30-08-2026", "single_price": 290.00 },
-      { "date": "01-09-2026", "single_price": 310.00 },
-      { "date": "03-09-2026", "single_price": 305.20, "round_price": 340.00 },
-      { "date": "10-09-2026", "round_price": 300.00 }
+      { "date": "30-08-2026", "single_price": 290.00, "availableSeats": 102 },
+      { "date": "01-09-2026", "single_price": 310.00, "availableSeats": 62 },
+      { "date": "03-09-2026", "single_price": 305.20, "round_price": 340.00, "availableSeats": 35 },
+      { "date": "10-09-2026", "round_price": 300.00, "availableSeats": 48 }
     ],
     "flight_class": [
       { "class": "Economy", "increase_percent": 0 },
@@ -142,8 +142,8 @@ const flights = [
       "time_delay": 1.0
     },
     "flight_dates": [
-      { "date": "20-11-2025", "single_price": 289.00 },
-      { "date": "23-11-2025", "round_price": 269.70 }
+      { "date": "20-11-2025", "single_price": 289.00, "availableSeats": 8 },
+      { "date": "23-11-2025", "round_price": 269.70, "availableSeats": 83, }
     ],
     "flight_class": [
       { "class": "Economy", "increase_percent": 0 },
@@ -162,7 +162,7 @@ const flights = [
       "time": "13:30",
       "terminal": 1,
       "gate": "115"
-    },
+    }
   },
 
   {
@@ -170,7 +170,7 @@ const flights = [
     "flight_name": "British Airways",
     "flight_status": "Scheduled",
     "flight_dates": [
-      { "date": "22-10-2026", "single_price": 880.00, "round_price": 1080.00 }
+      { "date": "22-10-2026", "single_price": 880.00, "round_price": 1080.00, "availableSeats": 125 }
     ],
     "flight_class": [
       { "class": "Economy", "increase_percent": 0 },
@@ -191,24 +191,16 @@ const flights = [
       "time": "18:25",
       "terminal": 1,
       "gate": "C1"
-    },
+    }
   }
 ]
 
-const main_users = {
-
-}
-
-const passengers = {
+const booked_flights = [
   
-}
-
-const booked_flights = {
-
-}
+]
 
 module.exports = {
   flights,
-  passengers
+  booked_flights
 }
 
