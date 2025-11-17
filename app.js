@@ -4,7 +4,7 @@ const {
   searchFlight,
   bookFlight,
   displayBookedFlights
-} = require('./LingJunChen_flightBooking.js');
+} = require('./LingJunChen_flightBookingSystem.js');
 
 //Function #1
 /* sortFlightsByAirline();

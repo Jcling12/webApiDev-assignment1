@@ -1,12 +1,30 @@
-# Assignment 1
+# ✈️ Flight Booking System
 
-You will only need one file, ie, your node module, for this assignment.
+## Project Description
 
-In this readme file, describe how to use your node module. It could be similar to **app.js** from Lab2, where you call some functions in your node module and display the output. Describe how to setup your node module, if any. Describe how to call the functions, what parameters required and so on.
+This is a NodeJS module that simulates a simple flight booking system. Below are the following functions that you can use to manage and retrieve flight data:
 
-You can press **Ctrl+Shift+V** in this file in Visual Studio Code to see a live preview of the readme file.
+1. Sort flights by **airline**
+2. Sort flights by a **range** of prices
+3. Search flight based on **destination location** and **departure date**
+4. Book a flight
+5. Display booked flights based on user identity
 
-For some tips in formatting text in readme file, refer to https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+## Setup
+
+1. Open your working folder in VS Code and open your terminal (Or press `` Ctrl + ` `` )
+2. Clone the repository to your local directory by copying the code below:
+```
+git clone https://github.com/Jcling12/webApiDev-assignment1.git
+```
+3. Create a new file named app.js and insert the code below:
+```
+const flights = require('./LingJunChen_flightBookingSystem.js');
+```
+4. Run the project by typing in the terminal below:
+```
+nodemon app.js
+```
 
 # References
 Provide the references that you have used to support your assignment. 
