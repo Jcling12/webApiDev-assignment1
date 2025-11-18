@@ -1,11 +1,13 @@
 const { flights, booked_flights } = require('./database.js');
 
 module.exports = {
-
   //Function #1 - Sort flights based on airline
   sortFlightsByAirline(airline) {
     console.log("\n======== Function #1: Sorted Flights based on airline ========")
     console.log("N. Airline - Departure => Arrival\n");
+
+    let index = 1;
+
     //Safety check when no parameters are passed, display all flights instead 
     if (airline == null) {
       console.log('Please enter airline name to see filtered results\n');
@@ -13,28 +15,27 @@ module.exports = {
       flights.forEach((flight, index) => {
         console.log(`${index + 1}. ${flight.flight_name} - ${flight.departure.location} => ${flight.arrival.location}`);
       });
-    }
-    //Only one airline (string) is passed
-    else if (!Array.isArray(airline)) {
-      let index = 1;
-      flights.forEach((flight) => {
-        if (airline == flight.flight_name) {
-          console.log(`${index}. ${flight.flight_name} - ${flight.departure.location} => ${flight.arrival.location}`);
-          index++;
-        }
-      })
-    }
-    //Multiple airlines
-    else {
-      let index = 1;
-      airline.forEach((a) => {
+    } else {
+      //Only one airline (string) is passed
+      if (!Array.isArray(airline)) {
         flights.forEach((flight) => {
-          if (a == flight.flight_name) {
+          if (airline == flight.flight_name) {
             console.log(`${index}. ${flight.flight_name} - ${flight.departure.location} => ${flight.arrival.location}`);
             index++;
           }
         })
-      })
+      }
+      //Multiple airlines
+      else {
+        airline.forEach((a) => {
+          flights.forEach((flight) => {
+            if (a == flight.flight_name) {
+              console.log(`${index}. ${flight.flight_name} - ${flight.departure.location} => ${flight.arrival.location}`);
+              index++;
+            }
+          })
+        })
+      }
     }
   },
 
@@ -43,39 +44,49 @@ module.exports = {
     console.log("\n======== Function #2: Sorted Flights based on minimum/maximum price ========")
     console.log("N. Airline - Departure => Arrival\n");
 
+    let index = 1;
+
     //Safety check when no parameters are passed, display all flights instead 
-    if (minimumPrice == null || maximumPrice == null) {
+    if (!minimumPrice && !maximumPrice) {
       console.log('Please enter sorting options (minimumPrice & maximumPrice) to see filtered results\n');
       console.log('Available Flights: ');
       flights.forEach((flight, index) => {
         console.log(`${index + 1}. ${flight.flight_name} - ${flight.departure.location} => ${flight.arrival.location}`);
       });
     } else {
-      //When "maximumPrice" & "minimumPrice" is passed
-      const priceRangeFlights = flights.filter((flight) => {
-        //Check if AT LEAST ONE date meets the price criteria.
-        return flight.flight_dates.some((date) => {
+      const priceRangeFlights = flights.filter(flight => {
+        return flight.flight_dates.some(date => {
           const single = date.single_price;
           const round = date.round_price;
 
-          //Check if a price is valid and within range
+          // Helper function to check if a price is valid and within range
           const isPriceInRange = (price) => {
             // Ensures price is a number and is in range
-            return typeof price === 'number' &&
-              price > minimumPrice &&
-              price < maximumPrice;
+            const isNumber = typeof price === 'number';
+
+            if (minimumPrice !== null && maximumPrice !== null) {
+              // Condition 1: When both maximumPrice and minimumPrice are set
+              return isNumber && price >= minimumPrice && price < maximumPrice;
+            } else if (minimumPrice == null) {
+              // Condition 2: When only maximumPrice is set
+              return isNumber && price < maximumPrice;
+            } else {
+              // Condition 3: When only minimumPrice is set
+              return isNumber && price > minimumPrice;
+            }
           };
 
           return isPriceInRange(single) || isPriceInRange(round);
         });
-      });
+      })
 
       priceRangeFlights.forEach((flight) => {
-        flight.flight_dates.forEach((date, index) => {
-          console.log(`${index + 1}. ${flight.flight_name} - ${flight.departure.location} => ${flight.arrival.location}`);
+        flight.flight_dates.forEach((date) => {
+          console.log(`${index}. ${flight.flight_name} - ${flight.departure.location} => ${flight.arrival.location}`);
           console.log(`Date to Depart: ${date.date}`);
-          console.log(`Single-Trip Flight: \$${date.single_price}`);
+          console.log(`Single-Trip Flight: ${date.single_price ? `$${date.single_price}` : 'No flight'}`);
           console.log(`Round-Trip Flight: ${date.round_price ? `$${date.round_price}` : 'No flight'}\n`);
+          index++;
         })
       })
     }
@@ -184,9 +195,9 @@ module.exports = {
   displayBookedFlights(name) {
     console.log("\n======== Function #5: Display Booked Flights ========");
     const userFlights = booked_flights.filter(flight => flight.booking_name.toLowerCase() == name.toLowerCase());
-    
+
     //Safety check when no/insufficient parameters are passed
-    if (booked_flights.length == 0 || userFlights.length == 0) {
+    if (booked_flights.length == 0 || userFlights.length == 0 || name.length == 0) {
       console.log(`No booked flights under ${name}`);
     } else {
       console.log(`Flights found under ${name}! Please ensure flight details are correct.`);
