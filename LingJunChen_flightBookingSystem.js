@@ -194,31 +194,36 @@ module.exports = {
   //Function #5 - Retrieve flight information based on booked name
   displayBookedFlights(name) {
     console.log("\n======== Function #5: Display Booked Flights ========");
-    const userFlights = booked_flights.filter(flight => flight.booking_name.toLowerCase() == name.toLowerCase());
-
     //Safety check when no/insufficient parameters are passed
-    if (booked_flights.length == 0 || userFlights.length == 0 || name.length == 0) {
-      console.log(`No booked flights under ${name}`);
+    if (!name) {
+      console.log(`Unable to find booked flights. Please enter your booking name.`);
     } else {
-      console.log(`Flights found under ${name}! Please ensure flight details are correct.`);
-      for (let i = 0; i < userFlights.length; i++) {
-        const flight = userFlights[i];
-        console.log(`\n--- Flight Record ${i + 1} ---`);
+      const userFlights = booked_flights.filter(flight => flight.booking_name.toLowerCase() == name.toLowerCase());
+      //No flights found based on user input
+      if (booked_flights.length == 0 || userFlights.length == 0) {
+        console.log(`No booked flights under ${name}`);
+      } else {
+        console.log(`Flights found under ${name}! Please ensure flight details are correct.`);
+        for (let i = 0; i < userFlights.length; i++) {
+          const flight = userFlights[i];
+          console.log(`\n--- Flight Record ${i + 1} ---`);
 
-        // Loop through the keys of the object
-        for (const key in flight) {
-          // Check if the value is another object (like 'departure' or 'arrival')
-          if (typeof flight[key] === 'object' && flight[key] !== null) {
-            // Loop through the nested object's keys
-            for (const nestedKey in flight[key]) {
-              console.log(`${nestedKey}: ${flight[key][nestedKey]}`);
+          // Loop through the keys of the object
+          for (const key in flight) {
+            // Check if the value is another object (like 'departure' or 'arrival')
+            if (typeof flight[key] === 'object' && flight[key] !== null) {
+              // Loop through the nested object's keys
+              for (const nestedKey in flight[key]) {
+                console.log(`${nestedKey}: ${flight[key][nestedKey]}`);
+              }
+            } else {
+              // Display the key-value pair for simple properties
+              console.log(`${key}: ${flight[key]}`);
             }
-          } else {
-            // Display the key-value pair for simple properties
-            console.log(`${key}: ${flight[key]}`);
           }
         }
       }
     }
+
   }
 }

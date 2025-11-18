@@ -47,4 +47,5 @@ bookFlight("MU546", "Jun Chen", "Economy", "10-09-2026");
 bookFlight("TR890", "Mary Tan", "Economy", "21-11-2025");
 
 //Function #5
+displayBookedFlights();
 displayBookedFlights("Jun Chen");
